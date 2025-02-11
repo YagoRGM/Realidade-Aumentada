@@ -1,50 +1,37 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"></script>
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/ar.js@1.7.2/aframe/build/aframe-ar.min.js"></script>
   </head>
   <body style="margin: 0px; overflow: hidden;">
-    <a-scene embedded arjs shadow="type: pcfsoft">
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+      <a-assets>
+        <!-- Carregamento do modelo Dodge Challenger -->
+        <a-asset-item id="dodge-challenger" src="dodge_challenger.glb"></a-asset-item>
+        <a-asset-item id="dodge-challenger" src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/Duck/glTF-Binary/Duck.glb"></a-asset-item>
+
+      </a-assets>
+
       <a-marker preset="hiro">
-        
         <!-- Luz Direcional para sombras e realismo -->
-        <a-light type="directional" position="2 4 2" intensity="1.2" cast-shadow></a-light>
+        <a-light position="2 4 2" intensity="1.2" cast-shadow></a-light>
 
-        <!-- Esfera com brilho, transparência, textura e animação -->
-        <a-sphere id="esfera"
-                  position="0 0.5 0"
-                  radius="0.5"
-                  material="shader: standard; src: url(https://i.imgur.com/8PjYFcJ.jpg); emissive: orange; emissiveIntensity: 0.5; opacity: 0.9; roughness: 0.1; metalness: 0.8;"
-                  shadow
-                  animation="property: position; to: 0 1 0; dur: 2000; dir: alternate; loop: true; easing: easeInOutSine">
-        </a-sphere>
-
-        <!-- Anel neon ao redor da esfera -->
-        <a-ring position="0 0.5 0"
-                rotation="90 0 0"
-                material="color: cyan; emissive: blue; emissiveIntensity: 1.2; opacity: 0.8;"
-                radius-inner="0.55" radius-outer="0.6"
-                animation="property: scale; to: 1.2 1.2 1; dur: 1000; dir: alternate; loop: true; easing: easeInOutSine">
-        </a-ring>
-
-        <!-- Chão para sombra e efeito realista -->
-        <a-plane rotation="-90 0 0"
-                 width="4" height="4"
-                 material="color: gray; opacity: 0.5"
-                 shadow>
-        </a-plane>
-
+        <!-- Modelo 3D Dodge Challenger -->
+        <a-entity id="car" gltf-model="#dodge-challenger" position="0 0 0" scale="2 2 2" rotation="0 180 0" shadow="cast: true; receive: true"></a-entity>
+        <script>
+          document.querySelector("#car").addEventListener("model-loaded", () => {
+            console.log("Modelo carregado com sucesso!");
+          });
+        
+          document.querySelector("#car").addEventListener("error", (e) => {
+            console.error("Erro ao carregar o modelo:", e);
+          });
+        </script>
       </a-marker>
+
+      <!-- A câmera está configurada para AR.js -->
       <a-entity camera></a-entity>
     </a-scene>
-
-    <script>
-      // Evento para mudar a cor ao clicar na esfera
-      document.querySelector("#esfera").addEventListener("click", function() {
-        this.setAttribute("material", "color", "blue");
-        alert("Você clicou na esfera!");
-      });
-    </script>
   </body>
 </html>
