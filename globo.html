@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Realidade Aumentada - Casa 3D</title>
+    <title>Globo Terrestre em AR</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js@1.7.2/aframe/build/aframe-ar.min.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
-  <!-- Teste 2 -->
-    <a-assets>
-        <a-asset-item id="model3d" src="https://cdn.glitch.global/6a4322c0-77c5-4011-9158-d0949692dec5/Small%20House.glb?v=1740434371245"></a-asset-item>
-    </a-assets>
     <a-scene embedded arjs>
-          <a-marker preset="hiro">
+        <a-marker preset="hiro">
             <a-entity 
-              id="model" 
-              gltf-model="#model3d" 
-              position="0 0 0" 
-              rotation="90 180 0" 
-              scale="1 1 1"> <!--Importanteeeee -->
+                id="globo"
+                gltf-model="https://cdn.glitch.global/6a4322c0-77c5-4011-9158-d0949692dec5/globe.glb?v=1741011614098"
+                position="0 0 0"  
+                scale="0.006 0.006 0.006"
+                rotation="0 0 0"
+                animation="property: rotation; to: 0 360 0; dur: 10000; loop: true; easing: linear">
             </a-entity>
-          </a-marker>
-          
+        </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
 </body>
-</html
+</html>
